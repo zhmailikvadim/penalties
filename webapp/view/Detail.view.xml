@@ -161,6 +161,17 @@
 											</Input>
 										</form:fields>
 									</form:FormElement>
+									<form:FormElement
+										label="{i18n>uuid_text}">
+										<form:fields>
+											<Input
+												id="idCtrlCommentInput"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/CTRL_COMMENT}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
 								</form:formElements>
 							</form:FormContainer>
 							<form:FormContainer>

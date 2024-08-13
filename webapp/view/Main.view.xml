@@ -257,6 +257,20 @@
 							</t:template>
 						</t:Column>
 						<t:Column 
+								width="30rem"
+								tooltip="{i18n>uuid_text}"
+								sortProperty="CTRL_COMMENT"
+								cd:prop="CTRL_COMMENT">
+							<Label 
+									wrapping="true"
+									text="{i18n>uuid_text}" />
+							<t:template>
+								<Text 
+										text="{appData>CTRL_COMMENT}"
+										maxLines="1" />
+							</t:template>
+						</t:Column>
+						<t:Column 
 								width="15rem"
 								tooltip="{i18n>penTypeColumn}"
 								sortProperty="PEN_TYPE_TEXT"

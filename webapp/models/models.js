@@ -60,6 +60,7 @@ sap.ui.define([
 				REVISION_ID: bEdit ? oEditModel.REVISION_ID : bExternal ? oEditModel.REVISION_ID  : null,
 				REVISION_ID_TEXT: bEdit ? oEditModel.REVISION_ID_TEXT : bExternal ? oEditModel.REVISION_ID_TEXT : "",
 				CNTRL_POINT: bEdit ? oEditModel.CNTRL_POINT : bExternal ? oEditModel.CNTRL_POINT : null,
+				CTRL_COMMENT: bEdit ? oEditModel.CTRL_COMMENT : bExternal ? oEditModel.CTRL_COMMENT : null,
 				UUID: bEdit ? oEditModel.UUID : bExternal ? oEditModel.UUID : null,
 				CNTRL_POINT_TEXT: bEdit ? oEditModel.CNTRL_POINT_TEXT : bExternal ? oEditModel.CNTRL_POINT_TEXT : "",
 				CR_DATE: bEdit ? new Date(oEditModel.CR_DATE) : new Date(),
