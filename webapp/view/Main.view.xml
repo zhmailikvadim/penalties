@@ -1,0 +1,320 @@
+<mvc:View
+		controllerName="by.mda.bn.penalties.controller.Main"
+		xmlns="sap.m"
+		xmlns:t="sap.ui.table"
+		xmlns:core="sap.ui.core"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:fb="sap.ui.comp.filterbar"
+		xmlns:f="sap.f"
+		xmlns:vm="sap.ui.comp.variants"
+		xmlns:l="sap.ui.layout"
+		xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<f:DynamicPage 
+			id="dynamicPageId"
+			class="sapUiNoContentPadding">	
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title
+							text="{i18n>appTitle}" />
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader 
+					pinnable="false">
+				<core:Fragment 
+						id="idFilterBar"
+						fragmentName="by.mda.bn.penalties.fragment.filterBar"
+						type="XML" />
+			</f:DynamicPageHeader>
+		</f:header>			
+		<f:content>
+			<VBox
+					fitContainer="true">
+				<t:Table 
+						id="mainTable"
+						visibleRowCountMode="Auto"
+						rows="{
+							path: 'appData>/tableData'
+						}"
+						selectionMode="Multi"
+						ariaLabelledBy="title"
+						columnSelect="onContext"
+						selectionBehavior="Row"
+						rowSelectionChange="onRowSelectionChange">
+					<t:toolbar>
+						<OverflowToolbar>
+							<content>
+								<Button
+										text="{i18n>createButton}"
+										icon="sap-icon://create-form"
+										type="Ghost"
+										press="onCreate"
+										visible="false" />
+								<Button
+										enabled="{config>/mainTable/isOneSelectedItem}"
+										text="{i18n>viewDetailsButton}"
+										icon="sap-icon://display"
+										type="Ghost"
+										press="onViewDetails" />
+								<Button
+										enabled="{config>/mainTable/isOneSelectedItem}"
+										text="{i18n>editButton}"
+										icon="sap-icon://edit"
+										type="Ghost"
+										press="onEdit" />
+								<Button
+										enabled="{config>/mainTable/isMultiSelectedItem}"
+										icon="sap-icon://delete"
+										text="{i18n>deleteButton}"
+										type="Ghost"
+										press="onDelete" />
+								<ToolbarSpacer/> 
+								<Button
+										id="idSortColumns"
+										icon="sap-icon://sort"
+										press="onOpenSortDialogPress">
+									<dependents>
+										<P13nDialog
+												ok="onSortDialogOkPress"
+												cancel="onSortDialogCancelPress"
+												reset="onSortDialogResetPress"
+												afterClose="onSortDialogAfterClose"
+												showReset="true"
+												showResetEnabled="true">
+											<panels>
+												<P13nSortPanel
+														type="sort"
+														containerQuery="true"
+														items="{sortModel>/columns}">
+													<items>
+														<P13nItem
+																columnKey="{sortModel>columnKey}"
+																text="{sortModel>text}">
+														</P13nItem>
+													</items>
+												</P13nSortPanel>
+											</panels>
+										</P13nDialog>
+									</dependents>
+								</Button>
+							</content>
+						</OverflowToolbar>
+					</t:toolbar>
+					<t:layoutData>
+						<FlexItemData
+								growFactor="1"/>
+					</t:layoutData>
+					<t:columns>
+						<t:Column 
+								width="6rem"
+								tooltip="{i18n>dateColumn}"
+								sortProperty="CR_DATE"
+								cd:prop="CR_DATE">
+							<Label 
+									wrapping="true"
+									text="{i18n>dateColumn}" />
+							<t:template>
+								<Text 
+										text="{
+											path: 'appData>CR_DATE',
+											formatter: '.formatter.formatDate'
+										}"
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="6rem"
+								tooltip="{i18n>numberColumn}"
+								sortProperty="ID"
+								cd:prop="ID">
+							<Label 
+									wrapping="true"
+									text="{i18n>numberColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>ID}" 
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="6rem"
+								tooltip="{i18n>recIDColumn}"
+								sortProperty="REC_ID"
+								cd:prop="REC_ID	">
+							<Label 
+									wrapping="true"
+									text="{i18n>recIDColumn}" />
+							<t:template>
+								<Text 
+										text="{= ${appData>REC_ID} === 0 ? '' : ${appData>REC_ID}}" 
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="12rem"
+								tooltip="{i18n>companyColumn}"
+								sortProperty="KOKRS_TEXT"
+								cd:prop="KOKRS_TEXT">
+							<Label 
+									wrapping="true"
+									text="{i18n>companyColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>KOKRS_TEXT}" 
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="12rem"
+								tooltip="{i18n>separateAssColumn}"
+								sortProperty="BUKRS_TEXT"
+								cd:prop="BUKRS_TEXT">
+							<Label 
+									wrapping="true"
+									text="{i18n>separateAssColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>BUKRS_TEXT}" 
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="12rem"
+								tooltip="{i18n>structuralAssColumn}"
+								sortProperty="ORG_UNIT_TEXT"
+								cd:prop="ORG_UNIT_TEXT">
+							<Label 
+									wrapping="true"
+									text="{i18n>structuralAssColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>ORG_UNIT_TEXT}" 
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="8rem"
+								tooltip="{i18n>dateSanctionColumn}"
+								sortProperty="SANCTION_DATE"
+								cd:prop="SANCTION_DATE">
+							<Label 
+									wrapping="true"
+									text="{i18n>dateSanctionColumn}" />
+							<t:template>
+								<Text 
+										text="{
+											path: 'appData>SANCTION_DATE',
+											formatter: '.formatter.formatDate'
+										}"
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="8rem"
+								tooltip="{i18n>endDateColumn}"
+								sortProperty="CANCEL_DATE"
+								cd:prop="CANCEL_DATE">
+							<Label 
+									wrapping="true"
+									text="{i18n>endDateColumn}" />
+							<t:template>
+								<Text 
+										text="{
+											path: 'appData>CANCEL_DATE',
+											formatter: '.formatter.formatDate'
+										}"
+										wrapping="true" />
+							</t:template>
+						</t:Column>						
+						<t:Column 
+								width="20rem"
+								tooltip="{i18n>monitoringObjectColumn}"
+								sortProperty="REVISION_ID_TEXT"
+								cd:prop="REVISION_ID_TEXT">
+							<Label 
+									wrapping="true"
+									text="{i18n>monitoringObjectColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>REVISION_ID_TEXT}" 
+										maxLines="1" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="30rem"
+								tooltip="{i18n>controlPointColumn}"
+								sortProperty="CNTRL_POINT_TEXT"
+								cd:prop="CNTRL_POINT_TEXT">
+							<Label 
+									wrapping="true"
+									text="{i18n>controlPointColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>CNTRL_POINT_TEXT}"
+										maxLines="1" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="15rem"
+								tooltip="{i18n>penTypeColumn}"
+								sortProperty="PEN_TYPE_TEXT"
+								cd:prop="PEN_TYPE_TEXT">
+							<Label 
+									wrapping="true"
+									text="{i18n>penTypeColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>PEN_TYPE_TEXT}" 
+										maxLines="1" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="25rem"
+								tooltip="{i18n>commentColumn}"
+								sortProperty="DESCRIPTION"
+								cd:prop="DESCRIPTION">
+							<Label 
+									wrapping="true"
+									text="{i18n>commentColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>DESCRIPTION}" 
+										maxLines="1" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="12rem"
+								tooltip="{i18n>createUserColumn}"
+								sortProperty="RESP_TEXT"
+								cd:prop="RESP_TEXT">
+							<Label 
+									wrapping="true"
+									text="{i18n>createUserColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>RESP_TEXT}" 
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+						<t:Column 
+								width="15rem"
+								tooltip="{i18n>createUserPositionColumn}"
+								sortProperty="POST_TEXT"
+								cd:prop="POST_TEXT">
+							<Label 
+									wrapping="true"
+									text="{i18n>createUserPositionColumn}" />
+							<t:template>
+								<Text 
+										text="{appData>POST_TEXT}" 
+										wrapping="true" />
+							</t:template>
+						</t:Column>
+					</t:columns>
+				</t:Table>
+			</VBox>
+		</f:content>   			
+	</f:DynamicPage>	
+</mvc:View>

@@ -1,0 +1,56 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+        xmlns:t="sap.ui.table"
+		xmlns:core="sap.ui.core">
+	<Dialog
+			id="controlPointSelectDialog"
+			contentWidth="800px"
+            contentHeight="700px"
+        	resizable="true"
+            draggable="true">
+		<customHeader>
+			<Toolbar>
+				<ToolbarSpacer />
+				<Title
+						text="{i18n>controlPointColumn}"
+						textAlign="Center" />
+                <ToolbarSpacer />	
+			</Toolbar>
+		</customHeader>
+		<content>
+             <t:TreeTable
+                    rows="{
+                        path:'appData>/controlPoints', 
+                        parameters: {
+                            arrayNames:['nodes']
+                        },
+                        sorter: { 
+                            path: 'name', 
+                            descending: 'true'
+                        }
+                    }"
+                    selectionMode="Single"
+                    visibleRowCount="17"
+                    ariaLabelledBy="title"
+                    selectionBehavior="Row"
+                    rowSelectionChange="onOkControlPoint">
+                <t:columns>
+                   <t:Column 
+                            width="auto">
+                        <Label 
+                                text="{i18n>decsColumn}" />
+                        <t:template>
+                            <Text 
+                                    text="{appData>name}" />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:TreeTable>
+		</content>
+		<buttons>
+			<Button
+					text="{i18n>cancelButton}"
+                    press="onCancelControlPoint" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

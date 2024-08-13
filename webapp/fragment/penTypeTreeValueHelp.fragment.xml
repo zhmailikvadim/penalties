@@ -1,0 +1,65 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+        xmlns:t="sap.ui.table"
+		xmlns:core="sap.ui.core">
+	<Dialog
+			id="penTypeSelectDialog"
+			contentWidth="800px"
+            contentHeight="700px"
+        	resizable="true"
+            draggable="true">
+		<customHeader>
+			<Toolbar>
+				<ToolbarSpacer />
+				<Title
+						text="{i18n>penTypeColumn}"
+						textAlign="Center" />
+                <ToolbarSpacer />	
+			</Toolbar>
+		</customHeader>
+		<content>
+             <t:TreeTable
+                    rows="{
+                        path:'appData>/penTypes', 
+                        parameters: {
+                            arrayNames:['nodes']
+                        },
+                        sorter: { 
+                            path: 'name', 
+                            descending: 'true'
+                        }
+                    }"
+                    selectionMode="Single"
+                    visibleRowCount="17"
+                    ariaLabelledBy="title"
+                    selectionBehavior="Row"
+                    rowSelectionChange="onOkPenType">
+                <t:columns>
+                    <t:Column 
+                            width="350px">
+                        <Label 
+                                text="{i18n>idColumn}" />
+                        <t:template>
+                            <Text 
+                                    text="{appData>id}" />
+                        </t:template>
+                    </t:Column>
+                   <t:Column 
+                            width="auto">
+                        <Label 
+                                text="{i18n>decsColumn}" />
+                        <t:template>
+                            <Text 
+                                    text="{appData>name}" />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:TreeTable>
+		</content>
+		<buttons>
+			<Button
+					text="{i18n>cancelButton}"
+                    press="onCancelPenType" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

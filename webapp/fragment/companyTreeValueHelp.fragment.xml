@@ -1,0 +1,65 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+        xmlns:t="sap.ui.table"
+		xmlns:core="sap.ui.core">
+	<Dialog
+			id="companySelectDialog"
+			contentWidth="800px"
+            contentHeight="700px"
+        	resizable="true"
+            draggable="true">
+		<customHeader>
+			<Toolbar>
+				<ToolbarSpacer />
+				<Title
+						text="{i18n>companyColumn}"
+						textAlign="Center" />
+                <ToolbarSpacer />	
+			</Toolbar>
+		</customHeader>
+		<content>
+             <t:TreeTable
+                    rows="{
+                        path:'appData>/companies', 
+                        parameters: {
+                            arrayNames:['nodes']
+                        },
+                        sorter: { 
+                            path: 'name', 
+                            descending: 'true'
+                        }
+                    }"
+                    selectionMode="Single"
+                    visibleRowCount="17"
+                    ariaLabelledBy="title"
+                    selectionBehavior="Row"
+                    rowSelectionChange="onOkCompany">
+                <t:columns>
+                    <t:Column 
+                            width="180px">
+                        <Label 
+                                text="{i18n>idColumn}" />
+                        <t:template>
+                            <Text 
+                                    text="{appData>id}" />
+                        </t:template>
+                    </t:Column>
+                   <t:Column 
+                            width="auto">
+                        <Label 
+                                text="{i18n>decsColumn}" />
+                        <t:template>
+                            <Text 
+                                    text="{appData>name}" />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:TreeTable>
+		</content>
+		<buttons>
+			<Button
+					text="{i18n>cancelButton}"
+                    press="onCancelCompany" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

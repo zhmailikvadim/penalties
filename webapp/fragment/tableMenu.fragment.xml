@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+	<Menu 
+			itemSelected="onSortAction">
+		<MenuItem 
+				icon="sap-icon://sort-ascending"
+				key="Ascending"
+				text="{i18n>sortAsc}"/>
+		<MenuItem 
+				icon="sap-icon://sort-descending"
+				key="Descending"
+				text="{i18n>sortDsc}"/>
+		<MenuItem
+				icon="sap-icon://sort"
+				key="Custom"
+				text="{i18n>sortCustom}"/>
+	</Menu>
+</core:FragmentDefinition>

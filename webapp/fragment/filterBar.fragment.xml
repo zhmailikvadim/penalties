@@ -1,0 +1,244 @@
+<core:FragmentDefinition
+        xmlns:vhd="sap.ui.comp.valuehelpdialog"
+		xmlns:core="sap.ui.core"
+		xmlns:fb="sap.ui.comp.filterbar"
+		xmlns:zlib="by.mda.bn.z_ehs_library_1"
+		xmlns="sap.m"
+        xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <fb:FilterBar 
+            useToolbar="false"
+            search="onSearch"
+            filtersDialogCancel="onCancel"
+            showRestoreButton="false"
+            filterBarExpanded="true"
+            showClearOnFB="true"
+            clear="onClearFilter"
+            filtersDialogBeforeOpen="handelFilterDialogOpen">
+        <fb:filterGroupItems>
+            <fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="CR_DATE"
+                    label="{i18n>dateColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>dateColumn}"
+							valueHelpKey="CR_DATE"
+							valueHelpKeyType="date"
+							valueHelpDescriptionKey="{i18n>dateColumn}"
+                            valueHelpOnly="true"
+                            rangesOnly="true"
+                            listPath="/CR_DATE"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/CR_DATE'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="ID"
+                    label="{i18n>numberColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>numberColumn}"
+							valueHelpKey="ID"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>numberColumn}"
+                            listPath="/ID"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/ID'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="KOKRS_TEXT"
+                    label="{i18n>companyColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>companyColumn}"
+							valueHelpKey="KOKRS_TEXT"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>companyColumn}"
+                            listPath="/KOKRS_TEXT"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/KOKRS_TEXT'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="BUKRS_TEXT"
+                    label="{i18n>separateAssColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>separateAssColumn}"
+							valueHelpKey="BUKRS_TEXT"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>separateAssColumn}"
+                            listPath="/BUKRS_TEXT"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/BUKRS_TEXT'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="ORG_UNIT_TEXT"
+                    label="{i18n>structuralAssColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>structuralAssColumn}"
+							valueHelpKey="ORG_UNIT_TEXT"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>structuralAssColumn}"
+                            listPath="/ORG_UNIT_TEXT"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/ORG_UNIT_TEXT'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="SANCTION_DATE"
+                    label="{i18n>dateSanctionColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>dateSanctionColumn}"
+							valueHelpKey="SANCTION_DATE"
+							valueHelpKeyType="date"
+							valueHelpDescriptionKey="{i18n>dateSanctionColumn}"
+                            valueHelpOnly="true"
+                            rangesOnly="true"
+                            listPath="/SANCTION_DATE"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/SANCTION_DATE'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="REVISION_ID_TEXT"
+                    label="{i18n>monitoringObjectColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>monitoringObjectColumn}"
+							valueHelpKey="REVISION_ID_TEXT"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>monitoringObjectColumn}"
+                            listPath="/REVISION_ID_TEXT"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/REVISION_ID_TEXT'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="CNTRL_POINT_TEXT"
+                    label="{i18n>controlPointColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>controlPointColumn}"
+							valueHelpKey="CNTRL_POINT_TEXT"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>controlPointColumn}"
+                            listPath="/CNTRL_POINT_TEXT"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/CNTRL_POINT_TEXT'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="PEN_TYPE_TEXT"
+                    label="{i18n>penTypeColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>penTypeColumn}"
+							valueHelpKey="PEN_TYPE_TEXT"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>penTypeColumn}"
+                            listPath="/PEN_TYPE_TEXT"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/PEN_TYPE_TEXT'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="RESP_TEXT"
+                    label="{i18n>createUserColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>createUserColumn}"
+							valueHelpKey="RESP_TEXT"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>createUserColumn}"
+                            listPath="/RESP_TEXT"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/RESP_TEXT'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+			<fb:FilterGroupItem
+                    groupName="firstGroup"
+                    name="POST_TEXT"
+                    label="{i18n>createUserPositionColumn}"
+                    visibleInFilterBar="true">
+                <fb:control>
+                    <zlib:MultiInput 
+							valueHelpTitle="{i18n>createUserPositionColumn}"
+							valueHelpKey="POST_TEXT"
+							valueHelpKeyType="string"
+							valueHelpDescriptionKey="{i18n>createUserPositionColumn}"
+                            listPath="/POST_TEXT"
+                            beforeOpen="._prepareSelectionModel"
+							tokensBindingInfo="{
+								modelName: 'filterModel',
+								bindingPath: '/POST_TEXT'
+							}">
+                    </zlib:MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+        </fb:filterGroupItems>
+    </fb:FilterBar>
+</core:FragmentDefinition>

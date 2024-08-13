@@ -1,0 +1,74 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+        xmlns:t="sap.ui.table"
+		xmlns:core="sap.ui.core">
+	<Dialog
+			id="userSelectDialog"
+			contentWidth="800px"
+            contentHeight="700px"
+        	resizable="true"
+            draggable="true">
+		<customHeader>
+			<Toolbar>
+				<ToolbarSpacer />
+				<Title
+						text="{i18n>userColumn}"
+						textAlign="Center" />
+                <ToolbarSpacer />	
+			</Toolbar>
+		</customHeader>
+		<content>
+             <t:TreeTable
+                    rows="{
+                        path:'appData>/users', 
+                        parameters: {
+                            arrayNames:['nodes']
+                        },
+                        sorter: { 
+                            path: 'name', 
+                            descending: 'true'
+                        }
+                    }"
+                    selectionMode="Single"
+                    visibleRowCount="17"
+                    ariaLabelledBy="title"
+                    selectionBehavior="Row"
+                    rowSelectionChange="onOkUser">
+                <t:columns>
+                    <t:Column 
+                            width="180px">
+                        <Label 
+                                text="{i18n>idColumn}" />
+                        <t:template>
+                            <Text 
+                                    text="{appData>RESP}" />
+                        </t:template>
+                    </t:Column>
+                   <t:Column 
+                            width="auto">
+                        <Label 
+                                text="{i18n>fioColumn}" />
+                        <t:template>
+                            <Text 
+                                    text="{appData>FIO}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column 
+                            width="auto">
+                        <Label 
+                                text="{i18n>positionColumn}" />
+                        <t:template>
+                            <Text 
+                                    text="{appData>POST_TEXT}" />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:TreeTable>
+		</content>
+		<buttons>
+			<Button
+					text="{i18n>cancelButton}"
+                    press="onCancelUser" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,813 @@
+<mvc:View
+	controllerName="by.mda.bn.penalties.controller.Detail"
+	xmlns="sap.m"
+	xmlns:t="sap.ui.table"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:f="sap.f"
+	xmlns:u="sap.ui.unified"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:vm="sap.ui.comp.variants"
+	xmlns:l="sap.ui.layout"
+	displayBlock="true">
+	<Page
+		id="idDetailPage"
+		showHeader="false"
+		navButtonPress="onNavButton"
+		showNavButton="false"
+		busyIndicatorDelay="0"
+		enableScrolling="false">
+		<content>
+			<f:DynamicPage
+				id="dynamicPageDetailId"
+				stickySubheaderProvider="iconTabBar"
+				class="sapUiNoContentPadding"
+				showFooter="true"
+				showHeader="false">
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:heading>
+							<Title
+								text="{= ${config>/state} === 'view' ?  
+                                            ${i18n>viewTitle} : 
+                                            ${config>/state} === 'create' ? 
+                                                ${i18n>createTitle} : 
+                                                ${i18n>editTitle}
+                                    }"
+								textAlign="Center" />
+						</f:heading>
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:content>
+					<form:Form
+						id="idChecklistForm"
+						editable="true">
+						<form:layout>
+							<form:ResponsiveGridLayout
+								adjustLabelSpan="false"
+								columnsXL="2"
+								columnsL="2"
+								columnsM="1"
+								columnsS="1"
+								singleContainerFullSize="false" />
+						</form:layout>
+						<form:formContainers>
+							<form:FormContainer>
+								<form:formElements>
+									<form:FormElement
+										label="{i18n>dateColumn}">
+										<form:fields>
+											<DatePicker
+												editable="false"
+												width="100%"
+												value="{
+                                                        'path':'createEditModel>/CR_DATE',
+                                                        'type':'sap.ui.model.type.Date',
+                                                        'formatOptions': {
+                                                            'pattern': 'dd.MM.yyyy'
+                                                        }
+                                                    }" />
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>numberColumn}">
+										<form:fields>
+											<Input
+												editable="false"
+												width="100%"
+												value="{createEditModel>/ID}" />
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>recIDColumn}">
+										<form:fields>
+											<Input
+												editable="false"
+												width="100%"
+												value="{createEditModel>/REC_ID}" />
+										</form:fields>
+									</form:FormElement>
+								</form:formElements>
+							</form:FormContainer>
+							<form:FormContainer>
+								<form:formElements>
+									<form:FormElement
+										label="{i18n>companyColumn}">
+										<form:fields>
+											<Input
+												id="companyControlID"
+												editable="false"
+												type="Text"
+												showValueHelp="true"
+												valueHelpOnly="true"
+												valueHelpRequest="onCompanyChange"
+												value="{createEditModel>/KOKRS_TEXT}" />
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>separateAssColumn}">
+										<form:fields>
+											<Input
+												id="separateAssControlID"
+												editable="false"
+												type="Text"
+												showValueHelp="true"
+												valueHelpOnly="true"
+												valueHelpRequest="onSeparateAssChange"
+												value="{createEditModel>/BUKRS_TEXT}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>structuralAssColumn}">
+										<form:fields>
+											<Input
+												id="structuralAssControlID"
+												editable="false"
+												type="Text"
+												showValueHelp="true"
+												valueHelpOnly="true"
+												valueHelpRequest="onChangeStructural"
+												value="{createEditModel>/ORG_UNIT_TEXT}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>monitoringObjectColumn}">
+										<form:fields>
+											<Input
+												id="monitoringObjectControlID"
+												editable="false"
+												type="Text"
+												showValueHelp="true"
+												valueHelpOnly="true"
+												valueHelpRequest="onMonitoringChange"
+												value="{createEditModel>/REVISION_ID_TEXT}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>controlPointColumn}">
+										<form:fields>
+											<Input
+												id="controlPointID"
+												editable="false"
+												type="Text"
+												showValueHelp="true"
+												valueHelpOnly="true"
+												valueHelpRequest="onControlPointChange"
+												value="{createEditModel>/CNTRL_POINT_TEXT}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
+								</form:formElements>
+							</form:FormContainer>
+							<form:FormContainer>
+								<form:formElements>
+									<form:FormElement
+										label="{i18n>dateSanctionColumn}">
+										<form:fields>
+											<DatePicker
+												id="dateSanctionId"
+												editable="{= ${config>/state} === 'create'}"
+												width="100%"
+												value="{
+                                                        'path':'createEditModel>/SANCTION_DATE',
+                                                        'type':'sap.ui.model.type.Date',
+                                                        'formatOptions': {
+                                                            'pattern': 'dd.MM.yyyy'
+                                                        }
+                                                    }" />
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>penTypeColumn}">
+										<form:fields>
+											<Input
+												id="penTypeID"
+												editable="{= ${config>/state} === 'create'}"
+												type="Text"
+												showValueHelp="true"
+												valueHelpOnly="true"
+												valueHelpRequest="onPenTypeChange"
+												value="{createEditModel>/PEN_TYPE_TEXT}">
+												<layoutData>
+													<l:GridData
+														span="XL7 L7 M9 S9" />
+												</layoutData>
+											</Input>
+											<Button icon="sap-icon://hint"
+												press="onPenInfo">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>commentColumn}">
+										<form:fields>
+											<Input
+												id="commentID"
+												editable="{= ${config>/state} === 'create'}"
+												type="Text"
+												value="{createEditModel>/DESCRIPTION}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentColumn}">
+										<form:fields>
+											<Input
+												id="documentID"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/DOCUMENTS/0/DOCUMENT_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentFileUploaderID"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'create'}"
+												name="documentFileUpload"
+												change="onUploadDocumentFile"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/DOCUMENTS/0/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentFile">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'create' &amp;&amp;
+                                                                ${createEditModel>/DOCUMENTS/0/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentFile">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentColumn1}"
+										visible="{config>/visibleDoc/doc1}">
+										<form:fields>
+											<Input
+												id="documentID1"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/DOCUMENTS/1/DOCUMENT_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentFileUploaderID1"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'create'}"
+												name="documentFileUpload"
+												change="onUploadDocumentFile1"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/DOCUMENTS/1/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentFile1">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'create' &amp;&amp;
+                                                                ${createEditModel>/DOCUMENTS/1/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentFile1">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentColumn2}"
+										visible="{config>/visibleDoc/doc2}">
+										<form:fields>
+											<Input
+												id="documentID2"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/DOCUMENTS/2/DOCUMENT_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentFileUploaderID2"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'create'}"
+												name="documentFileUpload"
+												change="onUploadDocumentFile2"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/DOCUMENTS/2/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentFile2">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'create' &amp;&amp;
+                                                                ${createEditModel>/DOCUMENTS/2/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentFile2">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentColumn3}"
+										visible="{config>/visibleDoc/doc3}">
+										<form:fields>
+											<Input
+												id="documentID3"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/DOCUMENTS/3/DOCUMENT_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentFileUploaderID3"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'create'}"
+												name="documentFileUpload"
+												change="onUploadDocumentFile3"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/DOCUMENTS/3/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentFile3">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'create' &amp;&amp;
+                                                                ${createEditModel>/DOCUMENTS/3/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentFile3">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentColumn4}"
+										visible="{config>/visibleDoc/doc4}">
+										<form:fields>
+											<Input
+												id="documentID4"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/DOCUMENTS/4/DOCUMENT_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentFileUploaderID4"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'create'}"
+												name="documentFileUpload"
+												change="onUploadDocumentFile4"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/DOCUMENTS/4/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentFile4">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'create' &amp;&amp;
+                                                                ${createEditModel>/DOCUMENTS/4/DOCUMENT_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentFile4">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>createUserColumn}">
+										<form:fields>
+											<Input
+												id="createUserID"
+												editable="false"
+												type="Text"
+												showValueHelp="true"
+												valueHelpOnly="true"
+												valueHelpRequest="onUserChange"
+												value="{createEditModel>/RESP_TEXT}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>createUserPositionColumn}">
+										<form:fields>
+											<Input
+												editable="false"
+												type="Text"
+												value="{createEditModel>/POST_TEXT}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
+								</form:formElements>
+							</form:FormContainer>
+							<form:FormContainer
+								visible="{= ${config>/state} !== 'create'}">
+								<form:formElements>
+									<form:FormElement
+										label="{i18n>endDateColumn}">
+										<form:fields>
+											<DatePicker
+												editable="{= ${config>/state} === 'create' || ${config>/state} === 'edit'}"
+												width="100%"
+												value="{
+                                                        'path':'createEditModel>/CANCEL_DATE',
+                                                        'type':'sap.ui.model.type.Date',
+                                                        'formatOptions': {
+                                                            'pattern': 'dd.MM.yyyy'
+                                                        }
+                                                    }" />
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>cancelSanctionColumn}">
+										<form:fields>
+											<CheckBox
+												editable="{= ${config>/state} === 'create' || ${config>/state} === 'edit'}"
+												text=""
+												selected="{createEditModel>/CANCEL_SACTION}" />
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>commentCancelColumn}">
+										<form:fields>
+											<Input
+												editable="{= ${config>/state} === 'create' || ${config>/state} === 'edit'}"
+												type="Text"
+												value="{createEditModel>/CANCEL_COMMENT}">
+											</Input>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentCancelColumn}">
+										<form:fields>
+											<Input
+												id="documentCancelID"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/EVIDENCES/0/EVIDENCE_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentCancelFileUploaderID"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'edit'}"
+												name="documentCancelFileUpload"
+												change="onUploadDocumentCancelFile"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/EVIDENCES/0/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentCancelFile">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'edit' &amp;&amp;
+                                                                ${createEditModel>/EVIDENCES/0/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentCancelFile">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentCancelColumn1}"
+										visible="{config>/visibleEv/doc1}">
+										<form:fields>
+											<Input
+												id="documentCancelID1"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/EVIDENCES/1/EVIDENCE_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentCancelFileUploaderID1"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'edit'}"
+												name="documentCancelFileUpload"
+												change="onUploadDocumentCancelFile1"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/EVIDENCES/1/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentCancelFile1">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'edit' &amp;&amp;
+                                                                ${createEditModel>/EVIDENCES/1/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentCancelFile1">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentCancelColumn2}"
+										visible="{config>/visibleEv/doc2}">
+										<form:fields>
+											<Input
+												id="documentCancelID2"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/EVIDENCES/2/EVIDENCE_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentCancelFileUploaderID2"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'edit'}"
+												name="documentCancelFileUpload"
+												change="onUploadDocumentCancelFile2"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/EVIDENCES/2/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentCancelFile2">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'edit' &amp;&amp;
+                                                                ${createEditModel>/EVIDENCES/2/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentCancelFile2">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentCancelColumn3}"
+										visible="{config>/visibleEv/doc3}">
+										<form:fields>
+											<Input
+												id="documentCancelID3"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/EVIDENCES/3/EVIDENCE_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentCancelFileUploaderID3"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'edit'}"
+												name="documentCancelFileUpload"
+												change="onUploadDocumentCancelFile3"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/EVIDENCES/3/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentCancelFile3">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'edit' &amp;&amp;
+                                                                ${createEditModel>/EVIDENCES/3/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentCancelFile3">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+									<form:FormElement
+										label="{i18n>documentCancelColumn4}"
+										visible="{config>/visibleEv/doc4}">
+										<form:fields>
+											<Input
+												id="documentCancelID4"
+												editable="false"
+												type="Text"
+												value="{createEditModel>/EVIDENCES/4/EVIDENCE_NAME}">
+												<layoutData>
+													<l:GridData
+														span="XL4 L4 M6 S8" />
+												</layoutData>
+											</Input>
+											<u:FileUploader
+												id="documentCancelFileUploaderID4"
+												buttonOnly="true"
+												typeMissmatch="handleTypeMissmatch"
+												fileType="doc,docx,pdf,png,jpg,jpeg"
+												enabled="{= ${config>/state} === 'edit'}"
+												name="documentCancelFileUpload"
+												change="onUploadDocumentCancelFile4"
+												width="100%">
+												<u:layoutData>
+													<l:GridData
+														span="XL2 L2 M2 S2" />
+												</u:layoutData>
+											</u:FileUploader>
+											<Button
+												enabled="{= ${createEditModel>/EVIDENCES/4/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://download"
+												press="onDownloadDocumentCancelFile4">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+											<Button
+												enabled="{= ${config>/state} === 'edit' &amp;&amp;
+                                                                ${createEditModel>/EVIDENCES/4/EVIDENCE_NAME} !== ''}"
+												text=""
+												icon="sap-icon://reset"
+												press="onClearDocumentCancelFile4">
+												<layoutData>
+													<l:GridData
+														span="XL1 L1 M1 S1" />
+												</layoutData>
+											</Button>
+										</form:fields>
+									</form:FormElement>
+								</form:formElements>
+							</form:FormContainer>
+						</form:formContainers>
+					</form:Form>
+				</f:content>
+				<f:footer>
+					<OverflowToolbar>
+						<ToolbarSpacer />
+						<Button
+							text="{i18n>saveButton}"
+							icon="sap-icon://save"
+							type="Emphasized"
+							press="onSave"
+							visible="{= ${config>/state} !== 'view'}" />
+						<Button
+							text="{i18n>cancelButton}"
+							press="onCancel" />
+					</OverflowToolbar>
+				</f:footer>
+			</f:DynamicPage>
+		</content>
+	</Page>
+</mvc:View>

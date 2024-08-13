@@ -1,0 +1,12 @@
+{
+  "name": "z_ehs_penalties",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist --exclude-task=escapeNonAsciiCharacters"
+  },
+  "dependencies": {
+    "@ui5/cli": "^2.14.19"
+  }
+}
